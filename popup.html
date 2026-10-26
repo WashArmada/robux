@@ -2,264 +2,62 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Free Robux Generator</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Rajdhani', sans-serif;
-      background: radial-gradient(circle at center, #0d1117 0%, #05070a 100%);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      padding: 20px;
+      text-align: center;
+      background: linear-gradient(to bottom right, #f9f9f9, #dfe9f3);
+      border-radius: 12px;
+      width: 250px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
 
-    .font-orbitron {
-      font-family: 'Orbitron', sans-serif;
+    h2 {
+      margin-bottom: 15px;
+      color: #111;
     }
 
-    /* Cyberpunk Scanline Effect */
-    .scanline {
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.3));
-      background-size: 100% 4px;
-      pointer-events: none;
-      opacity: 0.6;
+    input {
+      padding: 10px;
+      width: 90%;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+      box-sizing: border-box;
+      margin-bottom: 10px;
     }
 
-    /* Neon Glow Animations */
-    @keyframes pulseGlow {
-      0%, 100% { box-shadow: 0 0 15px rgba(0, 230, 118, 0.4), inset 0 0 15px rgba(0, 230, 118, 0.2); }
-      50% { box-shadow: 0 0 30px rgba(0, 230, 118, 0.8), inset 0 0 20px rgba(0, 230, 118, 0.4); }
+    button {
+      padding: 10px 20px;
+      font-size: 14px;
+      background-color: #00b06b;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s ease;
     }
 
-    .neon-card {
-      background: rgba(16, 24, 38, 0.75);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(0, 230, 118, 0.3);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.7);
+    button:hover {
+      background-color: #00985c;
     }
 
-    .neon-button {
-      background: linear-gradient(135deg, #00e676 0%, #00b06b 100%);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-    }
-
-    .neon-button:hover {
-      background: linear-gradient(135deg, #00ff84 0%, #00c87a 100%);
-      box-shadow: 0 0 20px rgba(0, 230, 118, 0.8);
-      transform: translateY(-2px);
-    }
-
-    .neon-button:active {
-      transform: translateY(1px);
-    }
-
-    /* Background Floating Particles Canvas */
-    #bgCanvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-    }
-
-    /* Input Focus Visuals */
-    .custom-input {
-      background: rgba(5, 10, 20, 0.8);
-      transition: all 0.3s ease;
-    }
-
-    .custom-input:focus {
-      border-color: #00e676;
-      box-shadow: 0 0 15px rgba(0, 230, 118, 0.4);
-      outline: none;
-    }
-
-    /* Hide Chrome/Safari/Edge number input spinners */
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-    input[type=number] {
-      -moz-appearance: textfield;
+    #result {
+      margin-top: 15px;
+      font-weight: bold;
+      color: red;
     }
   </style>
 </head>
-<body class="relative flex items-center justify-center min-h-screen text-white p-4">
+<body>
+  <h2>Enter Robux Amount</h2>
+  <input id="robuxAmount" type="number" placeholder="e.g. 1000" />
+  <button id="generateBtn">Generate</button>
+  <div id="result"></div>
 
-  <!-- Particle Background -->
-  <canvas id="bgCanvas"></canvas>
-
-  <!-- Overlay Scanline FX -->
-  <div class="scanline"></div>
-
-  <!-- Main Card Container -->
-  <div class="relative z-10 w-full max-w-sm neon-card rounded-2xl p-6 sm:p-8 flex flex-col items-center text-center">
-    
-    <!-- Top Decorative Hexagon Icon -->
-    <div class="w-16 h-16 mb-4 relative flex items-center justify-center">
-      <div class="absolute inset-0 bg-emerald-500/20 rounded-xl transform rotate-45 animate-pulse"></div>
-      <svg class="w-10 h-10 text-emerald-400 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-      </svg>
-    </div>
-
-    <!-- Title Header -->
-    <h2 class="font-orbitron text-2xl sm:text-3xl font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-200 to-green-500 mb-2">
-      ENTER ROBUX AMOUNT
-    </h2>
-    <p class="text-xs text-slate-400 font-semibold uppercase tracking-widest mb-6">Quantum Minting Protocol v3.8</p>
-
-    <!-- Inputs & Actions Form Wrapper -->
-    <div class="w-full flex flex-col gap-4">
-      <div class="relative w-full">
-        <!-- Original ID Preserved: robuxAmount -->
-        <input 
-          id="robuxAmount" 
-          type="number" 
-          placeholder="e.g. 1000" 
-          class="custom-input w-full px-4 py-3 rounded-xl border border-slate-700 text-center text-xl font-orbitron font-bold text-emerald-300 placeholder-slate-600 focus:outline-none"
-        />
-        <span class="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-emerald-500 uppercase tracking-wider pointer-events-none">R$</span>
-      </div>
-
-      <!-- Original ID Preserved: generateBtn -->
-      <button 
-        id="generateBtn" 
-        class="neon-button w-full py-3.5 rounded-xl text-slate-950 font-orbitron font-extrabold text-lg uppercase tracking-wider cursor-pointer transition-all duration-200"
-      >
-        Generate
-      </button>
-    </div>
-
-    <!-- Progress Bar (Dynamic FX during generation) -->
-    <div id="progressContainer" class="w-full mt-4 bg-slate-900/80 rounded-full h-2 overflow-hidden border border-slate-800 hidden">
-      <div id="progressBar" class="bg-gradient-to-r from-emerald-500 to-teal-300 h-full w-0 transition-all duration-100"></div>
-    </div>
-
-    <!-- Original ID Preserved: result -->
-    <div id="result" class="mt-4 text-sm font-semibold text-emerald-400 min-h-[24px] tracking-wide"></div>
-
-    <!-- Footer Security Tag -->
-    <div class="mt-6 pt-4 border-t border-slate-800/80 w-full flex items-center justify-between text-[10px] text-slate-500 tracking-wider">
-      <span class="flex items-center gap-1">
-        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> SECURE ENCRYPTION
-      </span>
-      <span>STATUS: READY</span>
-    </div>
-  </div>
-
-  <!-- Interactive Demo Simulation Handler (Fallback if popup.js is absent) -->
-  <script>
-    // Canvas Background Particles
-    const canvas = document.getElementById('bgCanvas');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    class Particle {
-      constructor() {
-        this.reset();
-      }
-      reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2 + 1;
-        this.speedX = (Math.random() - 0.5) * 0.5;
-        this.speedY = (Math.random() - 0.5) * 0.5;
-        this.alpha = Math.random() * 0.5 + 0.1;
-      }
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
-          this.reset();
-        }
-      }
-      draw() {
-        ctx.fillStyle = `rgba(0, 230, 118, ${this.alpha})`;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    for (let i = 0; i < 40; i++) {
-      particles.push(new Particle());
-    }
-
-    function animateParticles() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(p => {
-        p.update();
-        p.draw();
-      });
-      requestAnimationFrame(animateParticles);
-    }
-    animateParticles();
-
-    // Fallback Mock interaction for visual feedback if popup.js is not present
-    const btn = document.getElementById('generateBtn');
-    const input = document.getElementById('robuxAmount');
-    const resultDiv = document.getElementById('result');
-    const progressContainer = document.getElementById('progressContainer');
-    const progressBar = document.getElementById('progressBar');
-
-    btn.addEventListener('click', () => {
-      // Simple fallback check so page remains fully interactive out-of-the-box
-      if (typeof window.customScriptHandled === 'undefined') {
-        const val = input.value;
-        if (!val || val <= 0) {
-          resultDiv.style.color = '#ff5252';
-          resultDiv.textContent = 'Please enter a valid amount!';
-          return;
-        }
-
-        resultDiv.style.color = '#34d399';
-        resultDiv.textContent = 'Connecting to server...';
-        progressContainer.classList.remove('hidden');
-        progressBar.style.width = '0%';
-        btn.disabled = true;
-
-        let progress = 0;
-        const interval = setInterval(() => {
-          progress += 5;
-          progressBar.style.width = progress + '%';
-          
-          if (progress === 30) resultDiv.textContent = 'Bypassing security token...';
-          if (progress === 70) resultDiv.textContent = `Injecting ${val} Robux...`;
-
-          if (progress >= 100) {
-            clearInterval(interval);
-            resultDiv.style.color = '#00e676';
-            resultDiv.textContent = `Successfully generated ${val} R$!`;
-            btn.disabled = false;
-            setTimeout(() => {
-              progressContainer.classList.add('hidden');
-            }, 2000);
-          }
-        }, 80);
-      }
-    });
-  </script>
+  <!-- Link to external JS -->
   <script src="popup.js"></script>
 </body>
-</html>
+</html> 
